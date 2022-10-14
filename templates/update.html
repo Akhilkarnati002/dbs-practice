@@ -1,0 +1,17 @@
+<html>
+    <body>
+
+    <h1>Update form</h1>
+        <form action="{% url 'updatedata' pk=data.id  %}" method="POST">
+            {% csrf_token %}
+
+             Name:<input name="username" value="{{ data.username }}">
+             <br><br>
+             Email:<input name="email" value="{{ data.email }}">
+             <br><br>
+             <input type="submit" value="UPDATE">
+        </form>     
+ 
+
+    </body>
+</html>

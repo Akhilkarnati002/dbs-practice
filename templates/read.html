@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            {% if data %}
+            <tbody>
+                {% for i in data %}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.username}}</td>
+                <td>{{i.email}}</td>
+                <td>
+                    <form name="editform" action="{% url 'update' pk=i.id  %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Edit">
+                    </form>
+                </td>
+                <td>
+                    <form name="editform" action="{% url 'deldata' pk=i.id  %}" method="POST">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete">
+                    </form>
+                </td>
+            </tr>
+           
+            {% endfor %}   
+            </tbody>
+        {% endif%}
+</body>
+</html>

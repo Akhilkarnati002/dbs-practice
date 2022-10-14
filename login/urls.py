@@ -10,6 +10,8 @@ urlpatterns = [
     path('read/',read,name="read"),
     path('update/<int:pk>',update,name="update"),
     path('updated/<int:pk>',updatedata,name="updatedata"),
-    path('delete/<int:pk>',deldata,name="deldata")
+    path('delete/<int:pk>',deldata,name="deldata"),
+    path('home/<int:pk>',home,name='home'),
+    path('transfer/<int:pk>',transfer,name='tranfer')
 
 ]

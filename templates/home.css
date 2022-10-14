@@ -1,0 +1,33 @@
+.container{
+    background-color: darkgrey;
+    background-size:auto;
+    height:120%;
+    width:100%;
+}
+.form{
+    margin:50px;
+    padding:50px;
+    height:50%;
+    width:25%;
+    position: relative;
+    background-color:rgb(244, 245, 245);
+    left:340px;
+    top:75px;
+    right:25px;
+}
+.input{
+    position:relative;
+    left:0;
+    margin:2px;
+    padding:2px;
+    height:10%;
+    width:100%;
+    border: 30px;
+    transition:.5s;
+    background-color: rgb(192, 207, 152);
+}
+.select{
+    background-color: ivory;
+    position: relative;
+    left:50px;
+}

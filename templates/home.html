@@ -1,7 +1,10 @@
+
+{% load static %}
 <html>
     <head>
         <title>home page</title>
-        <link rel="stylesheet" href="home.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    </head>
     <body>
         <div class="container">
             <div class="form">
@@ -10,15 +13,17 @@
                 </div>
             <form class="a">
             <p><b>ACCOUNT NUMBER:</b></p>
-            <input type="text" id="ACCOUNT-num" class="input" placeholder="ACCOUNT NUMBER" required>
+                <h1>{{ data.profile_id.id }}</h1>
             <p><b>ACC-name:</b></p>
-            <input type="text" class="input" placeholder="ACCOUNT HOLDER NAME" required>
+                <h1>{{ data.profile_id.username }}</h1>
             <p><b id="char">ACCOUNT-TYPE:</b></p>
-            <input type="text" class="input" value=" " readonly>
+            <h1>{{ data.acc_id.acc_name }}</h1>
+            <p><b id="char">CURRENT BALANCE:</b></p>
+            <h1>{{ data.curr_bal }}</h1>
             </form>
 
             </div>
         </div>
     </body>
-    </head>
+    
 </html>

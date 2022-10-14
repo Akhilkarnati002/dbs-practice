@@ -2,7 +2,7 @@ from email import message
 from django.http import HttpResponse
 from django.shortcuts import render,redirect
 
-from .models import MyModel
+from .models import MyModel, Profile
 
 
 # Create your views here.
@@ -21,7 +21,7 @@ def my_form(request):
       Email = request.POST['email']
       Password = request.POST['password']
       Cpassword = request.POST['cpassword']
-      form = MyModel(username=Username,email=Email,password=Password,cpassword=Cpassword)
+      form = MyModel(username=Username,email=Email,password=Password)
       form.save()
       return render(request, 'login.html')
   else:
@@ -71,3 +71,23 @@ def deldata(request,pk):
     d=MyModel.objects.get(id=pk)
     d.delete()
     return redirect("/read")
+
+def home(request,pk):
+    a= Profile.objects.get(id=pk)
+    return render(request,'home.html',{'data': a})
+
+def transfer(request,pk):
+    if request.method=="POST":
+        toacc=request.POST['toaccount']
+        amount=request.POST['amount']
+        m=MyModel.objects.get(id=pk)
+        if m.curr_bal<amount:
+            return HttpResponse("insufficient amount")
+        else:
+            m.curr_bal-=amount
+            m.save()
+            n=MyModel.objects.get(id=toacc)
+            n.curr_bal+=amount
+            n.save()
+    return redirect('/home.html')    
+            

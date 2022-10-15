@@ -7,13 +7,12 @@
         <div class="container">
             <div class="form">
                
-            <form class="a">
+            <form class="a" method="POST" action="{% url 'home' pk=data.id %}">
+                    {% csrf_token %}
             <p><b>ACCOUNT NUMBER:</b></p>
-            <input type="text" id="ACCOUNT-num" class="input" placeholder="ACCOUNT NUMBER" required>
-            <p><b>ACCOUNT-NAME:</b></p>
-            <input type="text" class="input" placeholder="ACCOUNT HOLDER NAME" required>
+            <input name="toaccount" type="text" id="ACCOUNT-num" class="input" placeholder="ACCOUNT NUMBER" required>
             <p><b>AMOUNT</b></p>
-            <input type="text" class="input" placeholder="AMOUNT" required>
+            <input name="amount" type="text" class="input" placeholder="AMOUNT" required>
             <button type="submit" class="btn" name="transfer" >TRANSFER</button>
             </form>
 

@@ -38,9 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'login'
+    'BankingSystem.apps.BankingsystemConfig',
     
 ]
+AUTH_USER_MODEL = 'BankingSystem.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +54,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'akhil.urls'
+
+LOGIN_REDIRECT_URL = 'home' # new
+LOGOUT_REDIRECT_URL = 'home'
 
 TEMPLATES = [
     {
@@ -79,7 +83,7 @@ WSGI_APPLICATION = 'akhil.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'akhil',
+        'NAME':  'banking',
         'USER':'root',
         'PASSWORD': 'Srinu@002',
         'HOST': '127.0.0.1',

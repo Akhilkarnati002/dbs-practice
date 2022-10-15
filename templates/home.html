@@ -1,29 +1,15 @@
-
+{% extends 'base.html' %}
 {% load static %}
-<html>
-    <head>
-        <title>home page</title>
-        <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
-    </head>
-    <body>
-        <div class="container">
-            <div class="form">
-                <div id="mysidenav" class="sidenav">
-                    <a href="#" class="icon-a"><i class="fa fa-dashboard icons"></i>&nbsp;&nbsp;DASHBOARD</a>
-                </div>
-            <form class="a">
-            <p><b>ACCOUNT NUMBER:</b></p>
-                <h1>{{ data.profile_id.id }}</h1>
-            <p><b>ACC-name:</b></p>
-                <h1>{{ data.profile_id.username }}</h1>
-            <p><b id="char">ACCOUNT-TYPE:</b></p>
-            <h1>{{ data.acc_id.acc_name }}</h1>
-            <p><b id="char">CURRENT BALANCE:</b></p>
-            <h1>{{ data.curr_bal }}</h1>
-            </form>
+{% block title %}Home{% endblock title %}
 
-            </div>
-        </div>
-    </body>
-    
-</html>
+
+{% block content %}
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<p><a href="{% url 'logout' %}">Log Out</a></p>
+{% else %}
+<p>You are not logged in</p>
+<a href="{% url 'login' %}">Log In</a> |
+<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock content %}

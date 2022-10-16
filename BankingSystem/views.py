@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView,CreateView,UpdateView,DetailView,View
-
+from django.contrib.auth import get_user_model
 from BankingSystem.models import CustomUser, Profile
 from .forms import CustomUserCreationForm,AccountCreationform,MoneyTransferForm
 from django.urls import reverse_lazy
@@ -56,9 +56,12 @@ class MoneyTransfer(CreateView):
     def post(self,request):
         my_data = request.POST 
         money_transfer=int(my_data["money_transfer"])
-        print(request.POST)
         
-        USER1= Profile.objects.get(user_id=request.user.id)
+        
+        USER1= get_user_model()
+        print(USER1.username)
+        USER1=Profile.objects.get(user_id=USER1.id)
+        
        
         try:
             user2=Profile.objects.get(user_id=int(my_data['user_id']))

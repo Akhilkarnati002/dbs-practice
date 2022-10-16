@@ -16,5 +16,6 @@ class AccountCreationform(ModelForm):
 class MoneyTransferForm(ModelForm):
     money_transfer = forms.IntegerField()
     class Meta(ModelForm):
+        model=Profile
         fields=("user_id","money_transfer")
 

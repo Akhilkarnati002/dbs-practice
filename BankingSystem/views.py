@@ -53,11 +53,9 @@ class MoneyTransfer(CreateView):
     
     def post(self,request):
         my_data = request.POST 
-       
         money_transfer=int(my_data.money_transfer[0])
-        print(my_data)
         user1=Profile.objects.get(user_id=request.user.id)
-        user2=Profile.objects.get(user_id=int(my_data.user_id[0]))
+        user2=Profile.objects.get(user_id=int(my_data['user_id'][0]))
         template_name = 'moneytransfer.html'
         if money_transfer <= user1.current_balance:
              user1.current_balance-= money_transfer

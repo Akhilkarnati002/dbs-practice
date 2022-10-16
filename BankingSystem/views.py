@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView,CreateView,UpdateView,DetailView,View
-from django.contrib.auth import get_user_model
+
 from BankingSystem.models import CustomUser, Profile
 from .forms import CustomUserCreationForm,AccountCreationform,MoneyTransferForm
 from django.urls import reverse_lazy
@@ -8,7 +9,7 @@ from django.contrib.auth.views import LoginView
 
 # Create your views here.
 
-class Home(View):
+class Home(LoginRequiredMixin,View):
     def get(self,request):
         template_name = "home.html"
         try:
@@ -41,26 +42,21 @@ class AccountSetup(UpdateView):
             return AccountSetup.get(user_id=self.id)'''
 
 
-class MoneyTransfer(CreateView):
+class MoneyTransfer(LoginRequiredMixin,CreateView):
     form_class = MoneyTransferForm
     template_name = 'moneytransfer.html'
     success_url = reverse_lazy('home')
 
     def get(self,request):
-        global USER1 
-        
+        m=request.user.id
         template_name = 'moneytransfer.html'
         error=""
-        return render(request, template_name,{"error":error,"form":MoneyTransferForm})
+        return render(request, template_name,{"error":error,"form":MoneyTransferForm,'m':m})
     
-    def post(self,request):
+    def post(self,request,*args,**kwargs):
         my_data = request.POST 
         money_transfer=int(my_data["money_transfer"])
-        
-        
-        USER1= get_user_model()
-        print(USER1.username)
-        USER1=Profile.objects.get(user_id=USER1.id)
+        USER1= Profile.objects.get(user_id=int(request.user.id))
         
        
         try:
@@ -74,6 +70,7 @@ class MoneyTransfer(CreateView):
              USER1.save()
              user2.current_balance+= money_transfer
              user2.save()
+             return redirect('home')
 
         else:
             error="Money Excced the current balance"

@@ -6,9 +6,17 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
-{{ id.current_balance }}
+<br>
+Amount={{ id.current_balance }}
+<br>
 {{ id.user_id.username }}
+<br>
 {{ id.account_type_id.Name }}
+<br>
+<button>
+<a href="{% url 'moneytransfer' %}">Transfer Anount</a>
+</button>
+<br>
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
 <p>You are not logged in</p>

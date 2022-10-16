@@ -6,7 +6,8 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}!
-{{ user.current_balance }}
+{{ id.current_balance }}
+{{ id.user_id.username }}
 <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
 <p>You are not logged in</p>

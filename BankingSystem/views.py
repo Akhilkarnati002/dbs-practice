@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView,CreateView,UpdateView,DetailView,View
 
 from BankingSystem.models import CustomUser, Profile
-from .forms import CustomUserCreationForm,AccountCreationform
+from .forms import CustomUserCreationForm,AccountCreationform,MoneyTransferForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView
 
@@ -40,3 +40,26 @@ class AccountSetup(UpdateView):
             return AccountSetup.get(user_id=self.id)'''
 
 
+class MoneyTransfer(CreateView):
+    form_class = MoneyTransferForm
+    template_name = 'moneytransfer.html'
+    success_url = reverse_lazy('home')
+
+    def get(self,request):
+        template_name = 'moneytransfer.html'
+        error=""
+        return render(request, template_name,{"error":error})
+    
+    def post(self,request):
+        my_data = request.POST 
+        user1=Profile.objects.get(user_id=request.user.id)
+        user2=Profile.objects.get(user_id=my_data.user_id)
+        if my_data.money_transfer <= user1.current_balance:
+             user1.current_balance- = my_data.money_transfe 
+             user1.save()
+             user2.current_balance+= my_data.money_transfe 
+             user2.save()
+
+        else:
+            error="Money Excced the current balance"
+            return render(request, template_name,{"error":error}) 

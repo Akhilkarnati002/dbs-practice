@@ -9,11 +9,12 @@ from django.contrib.auth.views import LoginView
 # Create your views here.
 
 class Home(View):
-   
     def get(self,request):
         template_name = "home.html"
-        details = Profile.objects.get(user_id=request.user.id)
-        print(details)
+        try:
+            details = Profile.objects.get(user_id=request.user.id)
+        except:
+            details=""
         return render(request, template_name, {"id":details})
 
 

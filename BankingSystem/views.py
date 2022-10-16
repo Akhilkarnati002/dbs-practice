@@ -56,7 +56,11 @@ class MoneyTransfer(CreateView):
         money_transfer=int(my_data["money_transfer"])
         print(money_transfer)
         user1=Profile.objects.get(user_id=request.user.id)
-        user2=Profile.objects.get(user_id=int(my_data['user_id']))
+        try:
+            user2=Profile.objects.get(user_id=int(my_data['user_id']))
+        except:
+            error="User Doesn't exist"
+            return render(request, template_name,{"error":error}) 
         template_name = 'moneytransfer.html'
         if money_transfer <= user1.current_balance:
              user1.current_balance-= money_transfer

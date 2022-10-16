@@ -13,3 +13,9 @@ class AccountCreationform(ModelForm):
         fields=("account_type_id",)
         #Widgets={"user_id":forms.HiddenInput()}
 
+class MoneyTransferForm(ModelForm):
+    class Meta(ModelForm):
+        model=Profile
+        fields=("user_id","current_balance")
+
+

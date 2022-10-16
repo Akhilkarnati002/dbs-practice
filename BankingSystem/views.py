@@ -47,6 +47,8 @@ class MoneyTransfer(CreateView):
     success_url = reverse_lazy('home')
 
     def get(self,request):
+        global USER1 
+        
         template_name = 'moneytransfer.html'
         error=""
         return render(request, template_name,{"error":error,"form":MoneyTransferForm})
@@ -54,9 +56,9 @@ class MoneyTransfer(CreateView):
     def post(self,request):
         my_data = request.POST 
         money_transfer=int(my_data["money_transfer"])
-        print(money_transfer)
-        print(self.id,my_data["user_id"])
-        user1=Profile.objects.get(user_id=request.user.id)
+        print(request.POST)
+        
+        USER1= Profile.objects.get(user_id=request.user.id)
        
         try:
             user2=Profile.objects.get(user_id=int(my_data['user_id']))
@@ -64,9 +66,9 @@ class MoneyTransfer(CreateView):
             error="User Doesn't exist"
             return render(request, template_name,{"error":error}) 
         template_name = 'moneytransfer.html'
-        if money_transfer <= user1.current_balance:
-             user1.current_balance-= money_transfer
-             user1.save()
+        if money_transfer <= USER1.current_balance:
+             USER1.current_balance-= money_transfer
+             USER1.save()
              user2.current_balance+= money_transfer
              user2.save()
 

@@ -8,10 +8,12 @@ from django.contrib.auth.views import LoginView
 
 # Create your views here.
 
-class Home(DetailView):
-    model=Profile
-    context_object_name= "var"
+class Home(TemplateView):
     template_name = "home.html"
+    def get(self):
+        details = Profile.objects.get(user_id=self.id)
+        return {"id":details}
+
 
 class SignUp(CreateView):
     form_class = CustomUserCreationForm

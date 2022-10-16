@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView,CreateView,UpdateView,DetailView
+from django.views.generic import TemplateView,CreateView,UpdateView,DetailView,View
 
 from BankingSystem.models import CustomUser, Profile
 from .forms import CustomUserCreationForm,AccountCreationform
@@ -8,11 +8,13 @@ from django.contrib.auth.views import LoginView
 
 # Create your views here.
 
-class Home(TemplateView):
-    template_name = "home.html"
-    def get(self):
-        details = Profile.objects.get(user_id=self.id)
-        return {"id":details}
+class Home(View):
+   
+    def get(self,request):
+        template_name = "home.html"
+        details = Profile.objects.get(user_id=request.user.id)
+        print(details)
+        return render(request, template_name, {"id":details})
 
 
 class SignUp(CreateView):

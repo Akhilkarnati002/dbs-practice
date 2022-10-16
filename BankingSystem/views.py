@@ -55,7 +55,9 @@ class MoneyTransfer(CreateView):
         my_data = request.POST 
         money_transfer=int(my_data["money_transfer"])
         print(money_transfer)
+        print(self.id,my_data["user_id"])
         user1=Profile.objects.get(user_id=request.user.id)
+       
         try:
             user2=Profile.objects.get(user_id=int(my_data['user_id']))
         except:
